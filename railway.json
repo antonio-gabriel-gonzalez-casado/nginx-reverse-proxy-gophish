@@ -1,6 +1,7 @@
 {
     "build": {
-      "dockerfilePath": "./nginx/Dockerfile"
+      "dockerfilePath": "./nginx/Dockerfile",
+      "context": "./"
     }
   }
   
