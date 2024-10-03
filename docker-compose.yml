@@ -1,0 +1,19 @@
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt  # Volumen para los certificados SSL
+      - /var/www/html:/var/www/html  # Webroot para Certbot
+    depends_on:
+      - certbot
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt  # Volumen compartido para Certbot
+      - /var/www/html:/var/www/html  # Webroot para Let's Encrypt
+    entrypoint: /bin/sh -c "trap exit TERM; certbot certonly --webroot -w /var/www/html -d iesalixar.site -d www.iesalixar.site --non-interactive --agree-tos --email profe.antoniogabriel@gmail.com && while :; do certbot renew; sleep 12h & wait $${!}; done"
