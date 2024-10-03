@@ -4,7 +4,7 @@
 		"use_tls": false,
 		"cert_path": "gophish_admin.crt",
 		"key_path": "gophish_admin.key",
-		"trusted_origins": ["nginx-reverse-proxy-gophish-production.up.railway.app"]
+		"trusted_origins": ["iesalixar.site", "www.iesalixar.site"]
 	},
 	"phish_server": {
 		"listen_url": "0.0.0.0:80",
