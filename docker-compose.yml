@@ -1,0 +1,27 @@
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt  # Montar volúmenes para los certificados
+      - /var/www/html:/var/www/html        # Montar el directorio webroot
+
+    depends_on:
+      - gophish
+      - certbot
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt  # Compartir los certificados con Nginx
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
+      - /var/www/html:/var/www/html        # Montar el directorio webroot
+    entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done"
+
+  gophish:
+    image: gophish/gophish
+    ports:
+      - "3333:3333"
+      - "8080:80"  # GoPhish ahora escucha en el puerto 8080
