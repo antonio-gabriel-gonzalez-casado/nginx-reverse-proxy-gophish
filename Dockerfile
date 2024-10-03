@@ -1,11 +1,11 @@
-# Usa la imagen base de Nginx
-FROM nginx:alpine
+FROM gophish/gophish
 
-# Instala Certbot
-RUN apk add certbot certbot-nginx
+# Copia el archivo modificado `config.json` al directorio correcto dentro del contenedor
+COPY ./config.json /gophish/config.json
 
-# Copia tu configuración personalizada de Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+# Exponer los puertos para la administración y el servidor de phishing
+EXPOSE 3333
+EXPOSE 80
 
-# Exponer los puertos 80 (HTTP) y 443 (HTTPS)
-EXPOSE 80 443
+# Iniciar GoPhish sin HTTPS
+CMD ["./gophish"]
