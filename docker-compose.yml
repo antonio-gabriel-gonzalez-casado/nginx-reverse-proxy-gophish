@@ -16,4 +16,4 @@ services:
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt  # Volumen compartido para Certbot
       - /var/www/html:/var/www/html  # Webroot para Let's Encrypt
-    entrypoint: /bin/sh -c "trap exit TERM; certbot certonly --webroot -w /var/www/html -d iesalixar.site -d www.iesalixar.site --non-interactive --agree-tos --email profe.antoniogabriel@gmail.com && while :; do certbot renew; sleep 12h & wait $${!}; done"
+    entrypoint: /bin/sh -c "trap exit TERM; certbot certonly --webroot -w /var/www/html -d iesalixar.site --non-interactive --agree-tos --email profe.antoniogabriel@gmail.com && while :; do certbot renew; sleep 12h & wait $${!}; done"
