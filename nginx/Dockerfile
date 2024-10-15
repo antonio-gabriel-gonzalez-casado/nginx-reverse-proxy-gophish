@@ -10,6 +10,9 @@ RUN echo "test" > /var/www/html/.well-known/acme-challenge/test
 # Copia el archivo de configuración de Nginx
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
+# Asegura que el directorio tiene los permisos correctos
+RUN chmod -R 755 /var/www/html/.well-known
+
 # Exponer los puertos 80 (HTTP) y 443 (HTTPS)
 EXPOSE 80
 EXPOSE 443
