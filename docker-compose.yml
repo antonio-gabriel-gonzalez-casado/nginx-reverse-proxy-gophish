@@ -35,14 +35,13 @@ services:
       - "3333:3333"
       - "8080:8080"
     volumes:
-      - ./gophish-data:/opt/gophish
+      # Persistir sólo los datos, no sobrescribir el directorio completo
+      - ./gophish-data:/opt/gophish/db  # Solo la base de datos o el contenido que necesites persistir
+      - ./config.json:/opt/gophish/config.json  # Asegúrate de que el config.json esté bien ubicado
     environment:
       - ADMIN_EMAIL=${ADMIN_EMAIL}  # Leer del .env
     networks:
       - default
-
-volumes:
-  gophish-data:
 
 networks:
   default:
