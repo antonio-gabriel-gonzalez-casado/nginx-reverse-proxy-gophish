@@ -2,4 +2,7 @@ FROM gophish/gophish:latest
 
 COPY config.json .
 
-#CMD ["./gophish"]
+RUN chmod +x gophish
+
+
+CMD ["./gophish"]
