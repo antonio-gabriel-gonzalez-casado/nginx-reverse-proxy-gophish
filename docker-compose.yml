@@ -23,7 +23,8 @@ services:
       - CERTBOT_EMAIL=${CERTBOT_EMAIL}  # Leer del .env
 
   gophish:
-    image: gophish/gophish
+    build:
+      context: ./etc/gophish/
     ports:
       - "3333:3333"
       - "8080:8080"
