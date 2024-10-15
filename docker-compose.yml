@@ -26,6 +26,19 @@ services:
     networks:
       - default
 
+  mysql:
+    image: mysql:latest
+    container_name: gophish-db
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - default
+    env_file:
+      - .env
+
   gophish:
     build:
       context: ./gophish/
@@ -36,11 +49,18 @@ services:
       - "8080:8080"
     volumes:
       # Persistir sólo los datos, no sobrescribir el directorio completo
-      - ./gophish-data:/opt/gophish/db  # Solo la base de datos o el contenido que necesites persistir
+      - gophish-data:/opt/gophish/db  # Solo la base de datos o el contenido que necesites persistir
     environment:
       - ADMIN_EMAIL=${ADMIN_EMAIL}  # Leer del .env
     networks:
       - default
+    depends_on:
+      - mysql
+      - nginx
+
+volumes:
+  mysql_data:
+  gophish-data:
 
 networks:
   default:
