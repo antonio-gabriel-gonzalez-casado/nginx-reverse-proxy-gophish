@@ -27,7 +27,7 @@ services:
       - default
 
   mysql:
-    image: mysql:latest
+    image: mysql:8.0.40
     container_name: gophish-db
     restart: unless-stopped
     ports:
