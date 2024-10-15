@@ -34,6 +34,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - mysql_sock:/var/run/mysqld
     networks:
       - default
     env_file:
@@ -50,16 +51,18 @@ services:
     volumes:
       # Persistir sólo los datos, no sobrescribir el directorio completo
       - gophish-data:/opt/gophish/db  # Solo la base de datos o el contenido que necesites persistir
+      - mysql_sock:/var/run/mysqld
     environment:
       - ADMIN_EMAIL=${ADMIN_EMAIL}  # Leer del .env
     networks:
       - default
     depends_on:
       - mysql
-      
+
 volumes:
   mysql_data:
   gophish-data:
+  mysql_sock:
 
 networks:
   default:
