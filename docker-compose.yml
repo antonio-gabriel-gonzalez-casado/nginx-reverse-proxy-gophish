@@ -56,8 +56,7 @@ services:
       - default
     depends_on:
       - mysql
-      - nginx
-
+      
 volumes:
   mysql_data:
   gophish-data:
