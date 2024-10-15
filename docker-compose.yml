@@ -12,6 +12,8 @@ services:
       - gophish
     environment:
       - DOMAIN_NAME=${DOMAIN_NAME}  # Leer del .env
+    networks:
+      - default
 
   certbot:
     image: certbot/certbot
@@ -21,10 +23,14 @@ services:
     entrypoint: /bin/sh -c "trap exit TERM; certbot certonly --webroot -w /var/www/html -d ${DOMAIN_NAME} --non-interactive --agree-tos --email ${CERTBOT_EMAIL} && while :; do certbot renew; sleep 12h & wait $${!}; done"
     environment:
       - CERTBOT_EMAIL=${CERTBOT_EMAIL}  # Leer del .env
+    networks:
+      - default
 
   gophish:
     build:
       context: ./gophish/
+    container_name: gophish-prod
+    restart: unless-stopped
     ports:
       - "3333:3333"
       - "8080:8080"
@@ -32,4 +38,12 @@ services:
       - ./gophish-data:/opt/gophish
     environment:
       - ADMIN_EMAIL=${ADMIN_EMAIL}  # Leer del .env
-    restart: always
+    networks:
+      - default
+
+volumes:
+  gophish-data:
+
+networks:
+  default:
+    
