@@ -24,7 +24,7 @@ services:
 
   gophish:
     build:
-      context: ./etc/gophish/
+      context: ./gophish/
     ports:
       - "3333:3333"
       - "8080:8080"
