@@ -13,8 +13,8 @@
 		"key_path": "",
 		"trusted_origins": ["iesalixar.site", "www.iesalixar.site"]
 	},
-	"db_name": "mysql", 
-	"db_path": "gophish:gophish_password@tcp(gophish-db:3306)/gophish_db?charset=utf8&parseTime=True&loc=UTC",
+	"db_name": "sqlite3",
+	"db_path": "gophish.db",
 	"migrations_prefix": "db/db_",
 	"contact_address": "no-reply@iesalixar.site",
 	"logging": {

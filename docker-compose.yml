@@ -26,21 +26,6 @@ services:
     networks:
       - default
 
-  mysql:
-    image: mysql:8.4.2
-    container_name: gophish-db
-    restart: unless-stopped
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./mysql/:/docker-entrypoint-initdb.d/
-      - ./mysql/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - default
-    env_file:
-      - .env
-
   gophish:
     build:
       context: ./gophish/
@@ -56,11 +41,8 @@ services:
       - ADMIN_EMAIL=${ADMIN_EMAIL}  # Leer del .env
     networks:
       - default
-    depends_on:
-      - mysql
 
 volumes:
-  mysql_data:
   gophish-data:
 
 networks:
