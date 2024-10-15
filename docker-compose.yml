@@ -13,7 +13,7 @@ services:
     environment:
       - DOMAIN_NAME=${DOMAIN_NAME}  # Leer del .env
     networks:
-      - default
+      - gophish_network
 
   certbot:
     image: certbot/certbot
@@ -24,7 +24,7 @@ services:
     environment:
       - CERTBOT_EMAIL=${CERTBOT_EMAIL}  # Leer del .env
     networks:
-      - default
+      - gophish_network
 
   gophish:
     build:
@@ -40,11 +40,11 @@ services:
     environment:
       - ADMIN_EMAIL=${ADMIN_EMAIL}  # Leer del .env
     networks:
-      - default
+      - gophish_network
 
 volumes:
   gophish-data:
 
 networks:
-  default:
-    
+  gophish_network:
+    driver: bridge
