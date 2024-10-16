@@ -20,7 +20,7 @@ services:
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/www/html:/var/www/html
-    entrypoint: /bin/sh -c "trap exit TERM; certbot certonly --webroot -w /var/www/html -d ${DOMAIN_NAME} -d www.${DOMAIN_NAME} --non-interactive --agree-tos --email ${CERTBOT_EMAIL} && while :; do certbot renew; sleep 12h & wait $${!}; done"
+    entrypoint: /bin/sh -c "trap exit TERM; certbot certonly --webroot -w /var/www/html -d ${DOMAIN_NAME} -d www.${DOMAIN_NAME} --expand --non-interactive --agree-tos --email ${CERTBOT_EMAIL} && while :; do certbot renew; sleep 12h & wait $${!}; done"
     environment:
       - CERTBOT_EMAIL=${CERTBOT_EMAIL}  # Leer del .env
     networks:
